@@ -1,18 +1,9 @@
 var data;
-var url ="https://quality.data.gov.tw/dq_download_json.php?nid=18420&md5_url=44314524414150faa7ccb2800813f493";
-$.get("./getData.php",()=>{
-    $.get("data.json",(res)=>{
-        data = res;
-        sort();
-        console.log(sort1);
-    })
-})
+// var url ="https://data.taipei/api/getDatasetInfo/downloadResource?id=61ff4b3a-8a8a-47e4-96ec-e180b2abbfdb&rid=87b38c72-f9e7-4f75-b3af-5b6684f2a059";
+var url ="https://boxoffice.tfi.org.tw/api/export?start=2022-02-13&end=2022-02-13";
 
-var sort1= new Array();
-function sort(){
-    for(let i=0;i<data.length;i++){
-        if(!sort1.includes(data[i].產業別)){
-            sort1.push(data[i].產業別);
-        }
-    }
-}
+
+$.post("./getData.php",{url},(res)=>{
+        data = JSON.parse(res);
+        console.log(data);
+})
