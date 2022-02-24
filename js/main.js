@@ -1,12 +1,35 @@
 var data;
 // var url ="https://data.taipei/api/getDatasetInfo/downloadResource?id=61ff4b3a-8a8a-47e4-96ec-e180b2abbfdb&rid=87b38c72-f9e7-4f75-b3af-5b6684f2a059";
-var url ="https://boxoffice.tfi.org.tw/api/export?start=2022-02-11&end=2022-02-13";
+
+function showForm() {
+        $(".search").hide();
+        $(".searchForm").animate({ top: "10px" });
+}
+
+function hideSearchForm() {
+        $(".searchForm").animate({ top: "-400px" }, () => {
+                $(".search").show();
+        });
+}
+
+function q() {
+        // let start = document.querySelector("#start").value;
+        // let end = document.querySelector("#end").value;
+        // console.log(start);
+        // let url = `https://boxoffice.tfi.org.tw/api/export?start=${start}&end=${end}`;
 
 
-$.post("./getData.php",{url},(res)=>{
-        data = JSON.parse(res);
-        console.log(data);
-})
+        // $.post("./getData.php", { url }, (res) => {
+        //         data = JSON.parse(res);
+        //         console.log(data.list.length);
+        // })
+
+        hideSearchForm()
+}
+
+
+
+
 //時間區間最多90天
 //JSON格式最早2020/3/1
 
