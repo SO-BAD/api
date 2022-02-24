@@ -21,9 +21,10 @@
     </div>
     <div class="container-fluid mt-5">
         <div class="row">
-            <div class="col-12 col-lg-8 mx-auto p-0" style="height:500px; background:red;">
+            <div class="col-12 col-lg-8 mx-auto p-0" >
                 <div class="top">
-                    <h2 style="text-align: center; font-weight: bolder;"><i class="fa-solid fa-film-simple"></i>電影票房查詢</h2>
+                    <h2 style="text-align: center; font-weight: bolder;"><i class="fa-solid fa-film-simple"></i>全台電影票房查詢</h2>
+                    <span id="dateText"></span>
                     <div class="search" onclick="showForm()">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
@@ -31,16 +32,27 @@
                         <div class="hideFrom">
                             <i class="fa-solid fa-xmark" onclick="hideSearchForm()"></i>
                         </div>
+                        <div >
+                            *僅能查詢2020/3/1之後
+                        </div>
                         <input type="date" id="start">
+                        
                         <input type="date" id="end">
-                        <button onclick="q()" class="btn btn-info">查詢</button>
+                        <div >
+                            *最多查詢間隔90天之紀錄
+                        </div>
+                        <input type="button"onclick="q()" class="btn btn-info" value="查詢">
                     </div>
                 </div>
+            </div>
+            <div class="col-12 col-lg-8 mx-auto p-0" style="height:500px; background:red;">
+
             </div>
         </div>
     </div>
 
 </body>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="js/main.js"></script>
 
 </html>

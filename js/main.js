@@ -12,9 +12,13 @@ function hideSearchForm() {
         });
 }
 
+function showDate(start,end){
+        $("#dateText").text("查詢結果日期 : "+start +" ~ " + end)
+}
+
 function q() {
-        // let start = document.querySelector("#start").value;
-        // let end = document.querySelector("#end").value;
+        let start = document.querySelector("#start").value;
+        let end = document.querySelector("#end").value;
         // console.log(start);
         // let url = `https://boxoffice.tfi.org.tw/api/export?start=${start}&end=${end}`;
 
@@ -23,8 +27,8 @@ function q() {
         //         data = JSON.parse(res);
         //         console.log(data.list.length);
         // })
-
-        hideSearchForm()
+        showDate(start,end);
+        hideSearchForm();
 }
 
 
