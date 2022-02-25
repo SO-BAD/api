@@ -17,19 +17,29 @@ function closeSearchForm() {
 function echoDate(start, end) {
         $("#dateText").text("查詢結果日期 : " + start + " ~ " + end)
 }
+function moveMenu(){
+        $(".item").eq(0).animate({"margin-left":"0px"});
+}
+function sw(obj,num){
+        $(".item").removeClass("activeItem")
+        $(obj).addClass("activeItem");
+        $("#tableContent").animate({"left":(num*100).toString()+"%"});
+        $("#statiContent").animate({"left":(100 - num*100).toString()+"%"});
+}
+
 
 function q() {
         let start = document.querySelector("#start").value;
         let end = document.querySelector("#end").value;
-        let type = document.querySelector("#type").value;
         let ans = date_ck(start, end);
         if (ans == "ok") {
                 echoDate(start, end);
-                ajaxData(start, end, type);
+                ajaxData(start, end);
                 closeSearchForm();
+                moveMenu();
+                clearCanvas();
+                $("#tableContent").html("");
         }
-
-
 }
 function date_ck(start, end) {
         let s1 = new Date("2020/3/1");
@@ -70,17 +80,12 @@ function ajaxData(start, end, type) {
         $.post("./getData.php", { url }, (res) => {
                 originData = JSON.parse(res);
                 if (originData.list.length > 0) {
-                        switch (type) {
-                                case "table":
-                                        $("#content").load("./include/table.html", () => {
-                                                addSelectOpt();
-                                                qData();
-                                        })
-                                        break;
-                        }
-
+                        $("#tableContent").load("./include/table.html", () => {
+                                addSelectOpt();
+                                qData();
+                        })
                 } else {
-                        $("#content").text("目前還無資料");
+                        $("#tableContent").text("目前還無資料");
                 }
         })
 }

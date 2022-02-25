@@ -71,9 +71,10 @@ function qData() {
 function showTable(data) {
     let dataTable= document.querySelector("#dataTable"); 
     dataTable.innerHTML ="";
-    data.forEach(element => {
+    data.forEach((element,key) => {
         let fDiv = document.createElement("div");
         fDiv.setAttribute("class", "dataRow");
+        fDiv.setAttribute("onclick","modal("+key+")");
         for (let key in element) {
             if (key == "amounts") {
                 //amount            銷售金額
@@ -120,6 +121,31 @@ function showTable(data) {
         dataTable.appendChild(fDiv);
     });
 }
+
+function adjModal(){
+    $(".modal_bg").css("width",window.innerWidth+"px");
+    $(".modal_bg").css("height",window.innerHeight+"px");
+}
+function modal(num){
+    adjModal();
+    $(".modal_bg").css("display","flex");
+    
+    $(".modal").html("");
+    let modal = document.querySelector(".modal");
+    for(let prop in queryData[num]){
+        let div =document.createElement("div");
+        div.setAttribute("class","modalRow");
+        div.innerHTML = "<div>"+prop+"</div><div> " + queryData[num][prop] + "</div>";
+        modal.appendChild(div);
+    }
+}
+$("body").on("click",(e)=>{
+    if(e.target.className == "modal_bg"){
+        $(".modal_bg").css("display","none");
+    }
+    
+})
+
 
 
 var pageDataCount = 8;

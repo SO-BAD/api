@@ -24,16 +24,17 @@
     </script>
 </head>
 
-<body>
+<body onresize="adjModal()">
     <div class="modal_bg">
+        <div class="modal">
 
+        </div>
     </div>
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-3">
         <div class="row">
             <div class="col-12 col-lg-8 mx-auto p-0">
                 <div class="top">
-                    <h2 style="text-align: center; font-weight: bolder;"><i class="fa-solid fa-film-simple"></i>全台電影票房查詢
-                    </h2>
+                    <h2 style="text-align: center; font-weight: bolder;">全國電影票房統計數據</h2>
                     <span id="dateText" style="font-weight: bolder;font-size: 18px;"></span>
                     <div class="search" onclick="showForm()">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -45,34 +46,53 @@
                         <div>
                             *僅能查詢2020/3/1之後
                         </div>
-                        <input type="date" id="start">
+                        <input type="date" id="start" min="2020-03-01">
 
-                        <input type="date" id="end">
+                        <input type="date" id="end" min="2020-03-01">
                         
                         <div>
                             *最多查詢間隔90天之紀錄
-                        </div>
-                        <div style=" color:black; font-size: 16px; text-align: left;margin-top: 10px;padding-left: 20px;">資料呈現:
-                            <select name="" id="type" >
-                            <option value="table">表格</option>
-                        </select>
                         </div>
                         
                         <input type="button" onclick="q()" class="btn btn-info" value="查詢">
                     </div>
                 </div>
             </div>
+            <div class="col-12 col-lg-8 mx-auto menu">
+                <div onclick="sw(this,0)" class="item activeItem">
+                    <span data-text="TABLE">TABLE</span>
+                </div>
+                <div onclick="sw(this,1)" class="item">
+                    <span data-text="STATI">STATI</span>
+                </div>
+            </div>
             <div class="col-12 col-lg-8 mx-auto p-0 contentBox" >
-                <div id="content">
+                <div id = "canvas_bg" style=" height: 600px; display: flex;justify-content: center; align-items: flex-start; padding-top: 50px;">
+                    <canvas id="canvas" onclick="showForm()"></canvas>
+                </div>
+                <div id="tableContent">
                     
+                </div>
+                <div id = "statiContent" style="background-color: red; height: 600px;">
+
                 </div>
             </div>
         </div>
+        <footer class="row">
+            <div class="col-12 col-lg-8 mx-auto text-center" style="height: 80px; margin-top: 30px;">
+                <h2>資料來源 : 文化部 - 文化資料開放服務網 
+                    <a href="https://opendata.culture.tw/frontsite/openData/detail?datasetId=668" target="_blank" style="margin-left: 20px;">
+                        <i class="fa-solid fa-link"></i>
+                    </a> 
+                </h2>
+            </div>
+        </footer>
     </div>
 
 </body>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="js/main.js"></script>
 <script src="js/table.js"></script>
+<script src="js/canvas.js"></script>
 
 </html>
