@@ -1,9 +1,9 @@
 <div>
     <div class="tableMenu">
-        國別地區 : <select name="" id="countrySelect">
+        國別地區 : <select name="" id="countrySelect" onchange="qData();">
             <option value="-1">顯示全部</option>
         </select>
-        類別 : <select name="" id="sortSelect">
+        類別 : <select name="" id="sortSelect" onchange="qData();">
             <option value="tickets">銷售票數</option>
             <option value="amounts">銷售金額</option>
             <option value="totalTickets">累計銷售票數</option>
@@ -11,11 +11,10 @@
         </select>
         
         
-        排序 : <select name="" id="ordSelect">
+        排序 : <select name="" id="ordSelect" onchange="qData();">
             <option value="0">由高到低</option>
             <option value="1">由低到高</option>
         </select>
-        <button onclick="qData()" class="btn btn-primary">查詢</button>
     </div>
     <div class="dataCol">
         <div>國別地區<br>(country)</div>
@@ -25,8 +24,8 @@
     <div>出品(produce)</div>
     <div>上映院數(theaterCount)</div>
     <div>週票數變動率(ticketChangeRate)</div> -->
-        <div>查詢日期<br>銷售票數(tickets)</div>
-        <div>查詢日期<br>銷售金額(amount)</div>
+        <div>銷售票數<br>(tickets)</div>
+        <div>銷售金額<br>(amount)</div>
         <div>累計 - 銷售票數<br>(totaltickets)</div>
         <div>累計 - 銷售金額<br>(totalamoiunts)</div>
     </div>
