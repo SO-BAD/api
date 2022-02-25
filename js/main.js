@@ -1,4 +1,6 @@
-var data;
+
+var originData;
+var country = new Array();
 // var url ="https://data.taipei/api/getDatasetInfo/downloadResource?id=61ff4b3a-8a8a-47e4-96ec-e180b2abbfdb&rid=87b38c72-f9e7-4f75-b3af-5b6684f2a059";
 
 function showForm() {
@@ -6,31 +8,82 @@ function showForm() {
         $(".searchForm").animate({ top: "10px" });
 }
 
-function hideSearchForm() {
+function closeSearchForm() {
         $(".searchForm").animate({ top: "-400px" }, () => {
                 $(".search").show();
         });
 }
 
-function showDate(start,end){
-        $("#dateText").text("查詢結果日期 : "+start +" ~ " + end)
+function echoDate(start, end) {
+        $("#dateText").text("查詢結果日期 : " + start + " ~ " + end)
 }
 
 function q() {
         let start = document.querySelector("#start").value;
         let end = document.querySelector("#end").value;
-        // console.log(start);
-        // let url = `https://boxoffice.tfi.org.tw/api/export?start=${start}&end=${end}`;
+        let type = document.querySelector("#type").value;
+        let ans = date_ck(start, end);
+        if (ans == "ok") {
+                echoDate(start, end);
+                ajaxData(start, end, type);
+                closeSearchForm();
+        }
 
 
-        // $.post("./getData.php", { url }, (res) => {
-        //         data = JSON.parse(res);
-        //         console.log(data.list.length);
-        // })
-        showDate(start,end);
-        hideSearchForm();
 }
+function date_ck(start, end) {
+        let s1 = new Date("2020/3/1");
+        let startTime = new Date(start);
+        if (start == "" || end == "") {
+                alert("輸入不得為空");
+                return "err";
+        }
 
+        if (startTime.getTime() < s1.getTime()) {
+                alert("請輸入2020/3/1之後日期");
+                return "err";
+        }
+        let endTime = new Date(end);
+        if (endTime.getTime() > (startTime.getTime() + 90 * 24 * 60 * 60 * 1000)) {
+                alert("日期間隔不得大於90天");
+                return "err";
+        }
+
+
+
+        if (endTime.getTime() < startTime.getTime()) {
+                alert("結束日期請大於開始日期");
+                return "err";
+        }
+
+        let now = new Date();
+        if (endTime.getTime() > now.getTime()) {
+                alert("結束日期不得超過今天日期");
+                return "err";
+        }
+
+        return "ok";
+}
+function ajaxData(start, end, type) {
+        let url = `https://boxoffice.tfi.org.tw/api/export?start=${start}&end=${end}`;
+
+        $.post("./getData.php", { url }, (res) => {
+                originData = JSON.parse(res);
+                if (originData.list.length > 0) {
+                        switch (type) {
+                                case "table":
+                                        $("#content").load("./include/table.html", () => {
+                                                addSelectOpt();
+                                                qData();
+                                        })
+                                        break;
+                        }
+
+                } else {
+                        $("#content").text("目前還無資料");
+                }
+        })
+}
 
 
 
@@ -46,7 +99,7 @@ function q() {
 //produce           出品
 //releaseDate       上映日期
 //theaterCount      上映院數
-// ticketChangeRate 週票數變動率
+//ticketChangeRate 週票數變動率
 //tickets           銷售票數
 //totalamoiunts     累計銷售金額
 //totaltickets      累計銷售票數

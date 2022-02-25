@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/mian.css">
     <script src="./js/jquery-3.6.0.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZR0PZF0E5D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZR0PZF0E5D');
+    </script>
 </head>
 
 <body>
@@ -21,32 +30,42 @@
     </div>
     <div class="container-fluid mt-5">
         <div class="row">
-            <div class="col-12 col-lg-8 mx-auto p-0" >
+            <div class="col-12 col-lg-8 mx-auto p-0">
                 <div class="top">
-                    <h2 style="text-align: center; font-weight: bolder;"><i class="fa-solid fa-film-simple"></i>全台電影票房查詢</h2>
-                    <span id="dateText"></span>
+                    <h2 style="text-align: center; font-weight: bolder;"><i class="fa-solid fa-film-simple"></i>全台電影票房查詢
+                    </h2>
+                    <span id="dateText" style="font-weight: bolder;font-size: 18px;"></span>
                     <div class="search" onclick="showForm()">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <div class="searchForm">
-                        <div class="hideFrom">
-                            <i class="fa-solid fa-xmark" onclick="hideSearchForm()"></i>
+                        <div class="closeBtn">
+                            <i class="fa-solid fa-xmark" onclick="closeSearchForm()"></i>
                         </div>
-                        <div >
+                        <div>
                             *僅能查詢2020/3/1之後
                         </div>
                         <input type="date" id="start">
-                        
+
                         <input type="date" id="end">
-                        <div >
+                        
+                        <div>
                             *最多查詢間隔90天之紀錄
                         </div>
-                        <input type="button"onclick="q()" class="btn btn-info" value="查詢">
+                        <div style=" color:black; font-size: 16px; text-align: left;margin-top: 10px;padding-left: 20px;">資料呈現:
+                            <select name="" id="type" >
+                            <option value="table">表格</option>
+                        </select>
+                        </div>
+                        
+                        <input type="button" onclick="q()" class="btn btn-info" value="查詢">
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-8 mx-auto p-0" style="height:500px; background:red;">
-
+            <div class="col-12 col-lg-8 mx-auto p-0 contentBox" >
+                <div id="content">
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -54,5 +73,6 @@
 </body>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="js/main.js"></script>
+<script src="js/show.js"></script>
 
 </html>

@@ -1,0 +1,91 @@
+<div>
+    <div class="tableMenu">
+        國別地區 : <select name="" id="countrySelect">
+            <option value="-1">顯示全部</option>
+        </select>
+        類別 : <select name="" id="sortSelect">
+            <option value="tickets">銷售票數</option>
+            <option value="amounts">銷售金額</option>
+            <option value="totalTickets">累計銷售票數</option>
+            <option value="totalAmounts">累計銷售金額</option>
+        </select>
+        
+        
+        排序 : <select name="" id="ordSelect">
+            <option value="0">由高到低</option>
+            <option value="1">由低到高</option>
+        </select>
+        <button onclick="qData()" class="btn btn-primary">查詢</button>
+    </div>
+    <div class="dataCol">
+        <div>國別地區<br>(country)</div>
+        <div>中文片名<br>(name)</div>
+        <!-- <div>上映日期(releaseDate)</div>
+    <div>申請人(issue)</div>
+    <div>出品(produce)</div>
+    <div>上映院數(theaterCount)</div>
+    <div>週票數變動率(ticketChangeRate)</div> -->
+        <div>查詢日期<br>銷售票數(tickets)</div>
+        <div>查詢日期<br>銷售金額(amount)</div>
+        <div>累計 - 銷售票數<br>(totaltickets)</div>
+        <div>累計 - 銷售金額<br>(totalamoiunts)</div>
+    </div>
+    <div id="dataTable">
+
+    </div>
+    <div class=dataPage>
+
+    </div>
+</div>
+<style>
+    .tableMenu {
+        padding-top: 20px;
+        padding-left: 20px;
+        padding-bottom: 10px;
+        border-bottom: 5px solid #c2c2c2;
+    }
+
+    #dataTable {
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        height: 480px;
+    }
+    .dataCol {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .dataRow {
+        order: 0;
+    }
+    .dataRow:hover{
+        background-color: rgb(220, 251, 251);
+    }
+    .dataRow,
+    .dataCol {
+        display: flex;
+        text-align: center;
+    }
+
+    .dataRow>*,
+    .dataCol>* {
+        width: 150px;
+        overflow: hidden;
+        height: 60px;
+    }
+
+    .dataPage {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .dataPage>* {
+        width: 30px;
+        cursor: pointer;
+        color: rgb(98, 192, 223);
+    }
+    .activePage{
+        color:#393939;
+    }
+</style>
