@@ -152,4 +152,21 @@ function page(obj,num){
             $(".dataRow").eq(i).show();
         }
     }
+    let pageBtn = document.querySelectorAll(".pageBtn");
+    for(let i=0;i<pageBtn.length;i++){
+        if((i-num <4 && num-i<6)){
+            $(".pageBtn").eq(i).show();
+            $(".pageBtn").eq(i).css({'margin-left':"0px",'margin-right':"0px"});
+        }else{
+            if(i==0){
+                $(".pageBtn").eq(i).show();
+                $(".pageBtn").eq(i).css("margin-right","30px");
+            }else if(i==(pageBtn.length-1)){
+                $(".pageBtn").eq(i).show();
+                $(".pageBtn").eq(i).css("margin-left","30px");
+            }else{
+                $(".pageBtn").eq(i).hide();
+            }
+        }
+    }
 }
