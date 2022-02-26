@@ -87,6 +87,7 @@ function ajaxData(start, end, type) {
                                 // addSelectOpt();
                                 addChkBox();
                                 qData();
+                                scatter()
                         })
                 } else {
                         $("#tableContent").text("目前還無資料");
