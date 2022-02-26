@@ -3,7 +3,7 @@
 $html =  file_get_contents($_POST['url']);
 // $html =  file_get_contents($url);
 echo $html;
-// $myfile = fopen("./animal.csv", "w") or die("Unable to open file!");
+// $myfile = fopen("./data.json", "w") or die("Unable to open file!");
 // fwrite($myfile, $html);
 // fclose($myfile);
 

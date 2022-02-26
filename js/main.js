@@ -75,13 +75,17 @@ function date_ck(start, end) {
         return "ok";
 }
 function ajaxData(start, end, type) {
+        startAnimate();
         let url = `https://boxoffice.tfi.org.tw/api/export?start=${start}&end=${end}`;
 
         $.post("./getData.php", { url }, (res) => {
+        // $.get("./data.json", (res) => {
                 originData = JSON.parse(res);
+                // originData = res;
                 if (originData.list.length > 0) {
                         $("#tableContent").load("./include/table.html", () => {
-                                addSelectOpt();
+                                // addSelectOpt();
+                                addChkBox();
                                 qData();
                         })
                 } else {

@@ -38,20 +38,69 @@ function addSelectOpt() {
     })
 }
 
-function qData() {
-    let cSelect = $("#countrySelect").val();
-    let sSelect = $("#sortSelect").val();
-    let oSelect = $("#ordSelect").val();
-    queryData = [];
-    if (cSelect == -1) {
-        queryData = originData.list;
-    } else {
-        originData.list.forEach(element => {
-            if (element.country == country[cSelect]) {
-                queryData.push(element);
+function addChkBox() {
+    country = [];
+    originData.list.forEach(element => {
+        for (let key in element) {
+            if (key == "amounts") {
+                //amount            銷售金額
+            } else if (key == "country") {
+                //country           國別地區
+                if (country.indexOf(element.country) == -1) {
+                    let div = document.createElement("div");
+
+                    let l = country.length;
+                    country.push(element.country);
+
+                    let str = `<div><input type='checkbox' value='${l}' onclick ='qData()' checked>${element.country}</div>`;
+                    div.innerHTML = str;
+                    document.querySelector("#countyMenu").appendChild(div);
+
+
+
+                }
+            } else if (key == "issue") {
+                //issue             申請人
+            } else if (key == "name") {
+                //name              中文片名
+            } else if (key == "produce") {
+                //produce           出品
+            } else if (key == "releaseDate") {
+                //releaseDate       上映日期
+            } else if (key == "theaterCount") {
+                //theaterCount      上映院數
+            } else if (key == "ticketChangeRate") {
+                //ticketChangeRate 週票數變動率
+            } else if (key == "tickets") {
+                //tickets           銷售票數
+            } else if (key == "totalAmounts") {
+                //totalamoiunts     累計銷售金額
+            } else if (key == "totalTickets") {
+                //totaltickets      累計銷售票數
             }
-        });
-    }
+        }
+    })
+}
+
+
+function qData() {
+    let oSelect = $("#ordSelect").val();
+    let sSelect = $("#sortSelect").val();
+
+    let checkCountry = new Array();
+    let chkbox = document.querySelectorAll("input[type='checkbox']");
+    chkbox.forEach((e, k) => {
+        if (e.checked == true) {
+            checkCountry.push(country[k])
+        }
+    })
+
+    queryData = [];
+    originData.list.forEach(element => {
+        if (checkCountry.includes(element.country)) {
+            queryData.push(element);
+        }
+    });
 
 
     if (oSelect == 0) {
@@ -65,17 +114,30 @@ function qData() {
     }
     showTable(queryData);
     addPageNum(queryData.length);
-    page($(".pageBtn").eq(0),1)
+    page($(".pageBtn").eq(0), 1)
 }
 
 function showTable(data) {
-    let dataTable= document.querySelector("#dataTable"); 
-    dataTable.innerHTML ="";
-    data.forEach((element,key) => {
+    let sSelect = $("#sortSelect").val();
+
+    $(".dataCol>*").removeClass("sort");
+    let col =document.querySelectorAll(".dataCol>*");
+    col.forEach(e=>{
+        if(e.innerText.includes(sSelect)){
+            e.classList.add("sort");
+        }
+    })
+
+
+    let dataTable = document.querySelector("#dataTable");
+    dataTable.innerHTML = "";
+    data.forEach((element, key) => {
         let fDiv = document.createElement("div");
         fDiv.setAttribute("class", "dataRow");
-        fDiv.setAttribute("onclick","modal("+key+")");
+        fDiv.setAttribute("onclick", "modal(" + key + ")");
         for (let key in element) {
+
+
             if (key == "amounts") {
                 //amount            銷售金額
                 let cDiv = document.createElement("div");
@@ -120,30 +182,32 @@ function showTable(data) {
         }
         dataTable.appendChild(fDiv);
     });
+    clearInterval(animaVar);
+    ctx.clearRect(0,0,300,150);
 }
 
-function adjModal(){
-    $(".modal_bg").css("width",window.innerWidth+"px");
-    $(".modal_bg").css("height",window.innerHeight+"px");
+function adjModal() {
+    $(".modal_bg").css("width", window.innerWidth + "px");
+    $(".modal_bg").css("height", window.innerHeight + "px");
 }
-function modal(num){
+function modal(num) {
     adjModal();
-    $(".modal_bg").css("display","flex");
-    
+    $(".modal_bg").css("display", "flex");
+
     $(".modal").html("");
     let modal = document.querySelector(".modal");
-    for(let prop in queryData[num]){
-        let div =document.createElement("div");
-        div.setAttribute("class","modalRow");
-        div.innerHTML = "<div>"+prop+"</div><div> " + queryData[num][prop] + "</div>";
+    for (let prop in queryData[num]) {
+        let div = document.createElement("div");
+        div.setAttribute("class", "modalRow");
+        div.innerHTML = "<div>" + prop + "</div><div> " + queryData[num][prop] + "</div>";
         modal.appendChild(div);
     }
 }
-$("body").on("click",(e)=>{
-    if(e.target.className == "modal_bg"){
-        $(".modal_bg").css("display","none");
+$("body").on("click", (e) => {
+    if (e.target.className == "modal_bg") {
+        $(".modal_bg").css("display", "none");
     }
-    
+
 })
 
 
@@ -151,46 +215,46 @@ $("body").on("click",(e)=>{
 var pageDataCount = 8;
 var nowDataCount = 0;
 
-function addPageNum(dataLen){
-    let pageNum = (dataLen - dataLen%pageDataCount)/pageDataCount;
-    pageNum = (dataLen%pageDataCount ==0 )? pageNum:pageNum+1;
+function addPageNum(dataLen) {
+    let pageNum = (dataLen - dataLen % pageDataCount) / pageDataCount;
+    pageNum = (dataLen % pageDataCount == 0) ? pageNum : pageNum + 1;
     let dataPage = document.querySelector(".dataPage");
     dataPage.innerHTML = "";
-    for(let i=1;i<=pageNum;i++){
-        let div =document.createElement("div")
-        div.setAttribute("class","pageBtn")
-        div.setAttribute("onclick","page(this,"+i+")");
+    for (let i = 1; i <= pageNum; i++) {
+        let div = document.createElement("div")
+        div.setAttribute("class", "pageBtn")
+        div.setAttribute("onclick", "page(this," + i + ")");
         div.innerText = i;
         dataPage.appendChild(div);
     }
-    
+
 }
 
-function page(obj,num){
+function page(obj, num) {
     $(".dataRow").hide();
-    
+
     $(".pageBtn").removeClass("activePage");
     $(obj).addClass("activePage");
-    
+
     let dataRow = document.querySelectorAll(".dataRow");
-    for(let i =0;i<dataRow.length;i++){
-        if( i >=(num-1)*pageDataCount && i< pageDataCount*num){
+    for (let i = 0; i < dataRow.length; i++) {
+        if (i >= (num - 1) * pageDataCount && i < pageDataCount * num) {
             $(".dataRow").eq(i).show();
         }
     }
     let pageBtn = document.querySelectorAll(".pageBtn");
-    for(let i=0;i<pageBtn.length;i++){
-        if((i-num <4 && num-i<6)){
+    for (let i = 0; i < pageBtn.length; i++) {
+        if ((i - num < 4 && num - i < 6)) {
             $(".pageBtn").eq(i).show();
-            $(".pageBtn").eq(i).css({'margin-left':"0px",'margin-right':"0px"});
-        }else{
-            if(i==0){
+            $(".pageBtn").eq(i).css({ 'margin-left': "0px", 'margin-right': "0px" });
+        } else {
+            if (i == 0) {
                 $(".pageBtn").eq(i).show();
-                $(".pageBtn").eq(i).css("margin-right","30px");
-            }else if(i==(pageBtn.length-1)){
+                $(".pageBtn").eq(i).css("margin-right", "30px");
+            } else if (i == (pageBtn.length - 1)) {
                 $(".pageBtn").eq(i).show();
-                $(".pageBtn").eq(i).css("margin-left","30px");
-            }else{
+                $(".pageBtn").eq(i).css("margin-left", "30px");
+            } else {
                 $(".pageBtn").eq(i).hide();
             }
         }
