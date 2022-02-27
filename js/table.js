@@ -1,5 +1,6 @@
 var queryData = new Array();
-
+var sortNow = 'tickets';
+var sortOrd = 0;
 function addSelectOpt() {
     originData.list.forEach(element => {
         for (let key in element) {
@@ -83,10 +84,38 @@ function addChkBox() {
     
 }
 
+function chkAll(num){
+    if(num ==1){
+        $("input[type='checkbox']").prop("checked", true);
+    }else{
+        $("input[type='checkbox']").prop("checked", false);
+    }
+    qData();
+}
+
+
+function selectSort(obj){
+    if(sortNow == $(obj).data("sort")){
+        sortOrd = (sortOrd+1)%2;
+        if(sortOrd == 0 ){
+            $(obj).find(".sortOrd").html("<i class='fa-solid fa-arrow-up'></i>");
+        }else{
+            $(obj).find(".sortOrd").html("<i class='fa-solid fa-arrow-down'></i>");
+        }
+    }else{
+        $(".sortOrd").html("");
+        $(obj).find(".sortOrd").html("<i class='fa-solid fa-arrow-up'></i>");
+        sortNow = $(obj).data("sort")
+        sortOrd = 0;
+    }
+    $(".dataCol>*").removeClass("sortNow");
+    $(obj).addClass("sortNow");
+
+
+    qData();
+}
 
 function qData() {
-    let oSelect = $("#ordSelect").val();
-    let sSelect = $("#sortSelect").val();
 
     let checkCountry = new Array();
     let chkbox = document.querySelectorAll("input[type='checkbox']");
@@ -104,13 +133,13 @@ function qData() {
     });
 
 
-    if (oSelect == 0) {
+    if (sortOrd == 0) {
         queryData.sort(function (a, b) {
-            return parseInt(b[sSelect]) - parseInt(a[sSelect]);
+            return parseInt(b[sortNow]) - parseInt(a[sortNow]);
         })
     } else {
         queryData.sort(function (a, b) {
-            return parseInt(a[sSelect]) - parseInt(b[sSelect]);
+            return parseInt(a[sortNow]) - parseInt(b[sortNow]);
         })
     }
     showTable(queryData);
@@ -119,15 +148,6 @@ function qData() {
 }
 
 function showTable(data) {
-    let sSelect = $("#sortSelect").val();
-
-    $(".dataCol>*").removeClass("sort");
-    let col =document.querySelectorAll(".dataCol>*");
-    col.forEach(e=>{
-        if(e.innerText.includes(sSelect)){
-            e.classList.add("sort");
-        }
-    })
 
 
     let dataTable = document.querySelector("#dataTable");

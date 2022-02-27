@@ -1,38 +1,51 @@
 <div>
     <div class="tableMenu">
-        <!-- <select name="" id="countrySelect" onchange="qData();">
-            <option value="-1">顯示全部</option>
-        </select> -->
-
+        國別地區 : <button class="btn btn-info" onclick="chkAll(1)">全部勾選</button> <button class="btn btn-info"
+            onclick="chkAll(0)">取消全部勾選</button>
         <div id="countyMenu">
         </div>
-
-
-        類別 : <select name="" id="sortSelect" onchange="qData();">
-            <option value="tickets">銷售票數</option>
-            <option value="amounts">銷售金額</option>
-            <option value="totalTickets">累計銷售票數</option>
-            <option value="totalAmounts">累計銷售金額</option>
-        </select>
-
-
-        排序 : <select name="" id="ordSelect" onchange="qData();">
-            <option value="0">由高到低</option>
-            <option value="1">由低到高</option>
-        </select>
     </div>
     <div class="dataCol">
-        <div>國別地區<br>(country)</div>
-        <div>中文片名<br>(name)</div>
+        <div style="display: flex;justify-content: center;align-items: center;"><span>國別地區</span></div>
+        <div style="display: flex;justify-content: center;align-items: center;"><span>中文片名</span></div>
         <!-- <div>上映日期(releaseDate)</div>
     <div>申請人(issue)</div>
     <div>出品(produce)</div>
     <div>上映院數(theaterCount)</div>
     <div>週票數變動率(ticketChangeRate)</div> -->
-        <div>銷售票數<br>(tickets)</div>
-        <div>銷售金額<br>(amounts)</div>
-        <div>累計 - 銷售票數<br>(totalTickets)</div>
-        <div>累計 - 銷售金額<br>(totalAmounts)</div>
+        <div onclick="selectSort(this)" data-sort="tickets" class="sort sortNow">
+            <div class ="sortName">
+                <span>銷售票數</span>
+            </div>
+            <div class="sortOrd">
+                <i class="fa-solid fa-arrow-up"></i>
+            </div>
+        </div>
+        <div onclick="selectSort(this)" data-sort="amounts" class="sort">
+            <div class ="sortName">
+                <span>銷售金額</span>
+            </div>
+            <div class="sortOrd">
+
+            </div>
+        </div>
+
+        <div onclick="selectSort(this)" data-sort="totalTickets" class="sort">
+            <div class ="sortName">
+                <span>累計銷售票數</span>
+            </div>
+            <div class="sortOrd">
+
+            </div>
+        </div>
+        <div onclick="selectSort(this)" data-sort="totalAmounts" class="sort">
+            <div class ="sortName">
+                <span>累計銷售金額</span>
+            </div>
+            <div class="sortOrd">
+
+            </div>
+        </div>
     </div>
     <div id="dataTable">
 
@@ -43,7 +56,7 @@
 </div>
 <style>
     .tableMenu {
-        padding-top: 20px;
+        padding-top: 10px;
         padding-left: 20px;
         padding-bottom: 10px;
         border-bottom: 5px solid #c2c2c2;
@@ -73,10 +86,14 @@
         margin-top: 20px;
         margin-bottom: 20px;
     }
-    .dataCol>*{
+
+    .dataCol>* {
         padding-top: 5px;
         border-radius: 10px;
+        font-size: 18px;
+        font-weight: bolder;
     }
+
     .dataRow {
         order: 0;
     }
@@ -84,22 +101,47 @@
     .dataRow:hover {
         background-color: #c2c2c2;
     }
-    .sort{
-        background-color: rgb(44, 44, 44);
-        color:white;
+
+    .sort {
+        display: flex;
+        cursor: pointer;
     }
+    .sortNow {
+        background-color: rgb(44, 44, 44);
+        color: white;
+    }
+    
+    .sortName{
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .sortOrd{
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .dataRow,
     .dataCol {
         display: flex;
         text-align: center;
     }
 
-    .dataRow>*,
-    .dataCol>* {
-        width: 16%;
+    .dataCol>*,
+    .dataRow>*{
+        width: 17%;
         overflow: hidden;
-        height: 60px;
+        height: 55px;
     }
+
+    .dataCol>*:nth-child(1),
+    .dataRow>*:nth-child(1){
+        width: 15%;
+    }
+
 
     .dataPage {
         display: flex;
