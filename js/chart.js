@@ -1,5 +1,5 @@
 
-function scatter() {
+function showScatter() {
 
     var chart = {
         type: 'scatter',
@@ -83,4 +83,14 @@ function scatter() {
    json.plotOptions = plotOptions;
    $('#container').highcharts(json);
 
+}
+
+function showChart(){
+   let type =$("#chartType").val();
+   console.log(type);
+   switch(type){
+      case "scatter":
+         showScatter();
+         break;
+   }
 }

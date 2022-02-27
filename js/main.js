@@ -24,7 +24,7 @@ function sw(obj,num){
         $(".item").removeClass("activeItem")
         $(obj).addClass("activeItem");
         $("#tableContent").animate({"left":(num*100).toString()+"%"});
-        $("#statiContent").animate({"left":(100 - num*100).toString()+"%"});
+        $("#chartContent").animate({"left":(100 - num*100).toString()+"%"});
 }
 
 
@@ -39,6 +39,7 @@ function q() {
                 moveMenu();
                 clearCanvas();
                 $("#tableContent").html("");
+                $("#chartContent").html("");
         }
 }
 function date_ck(start, end) {
@@ -87,8 +88,8 @@ function ajaxData(start, end, type) {
                                 // addSelectOpt();
                                 addChkBox();
                                 qData();
-                                scatter()
                         })
+                        $("#chartContent").load("./include/chart.html")
                 } else {
                         $("#tableContent").text("目前還無資料");
                 }
