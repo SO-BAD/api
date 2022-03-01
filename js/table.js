@@ -122,7 +122,7 @@ function clearKeyword(){
 
 
 function qData() {
-
+    $("#container").html("");
     let checkCountry = new Array();
     let chkbox = document.querySelectorAll("input[type='checkbox']");
     let keyword = $("#keyword").val();

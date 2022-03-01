@@ -48,11 +48,11 @@ function showPie(){
 
    let arr = new Array();
    let total = 0;
-   originData.list.forEach( e =>{
+   queryData.forEach( e =>{
       total += e.amounts;
    })
 
-   originData.list.forEach( e =>{
+   queryData.forEach( e =>{
       arr.push([e.name,e.amounts/total]);
    })
 
@@ -110,7 +110,7 @@ function showColumn(){
    let nameArr = new Array();
    let nameAmounts = new Array();
    let nameTotal = new Array();
-   originData.list.forEach( e =>{
+   queryData.forEach( e =>{
       nameArr.push(e.name);
       nameAmounts.push(e.amounts);
       nameTotal.push(e.totalAmounts);
@@ -194,7 +194,7 @@ function showBar(){
    let nameArr = new Array();
    let nameAmounts = new Array();
    let nameTotal = new Array();
-   originData.list.forEach( e =>{
+   queryData.forEach( e =>{
       nameArr.push(e.name);
       nameAmounts.push(e.amounts);
       nameTotal.push(e.totalAmounts);
@@ -293,7 +293,7 @@ function showScatter() {
      };
     //  let qq =new Array();
      let nn = new Array();
-     originData.list.forEach(e => {
+     queryData.forEach(e => {
         //  nn.push(e.name);
         //  qq.push([e.theaterCount,e.amounts]);
         nn.push({
