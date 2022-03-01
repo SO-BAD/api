@@ -11,8 +11,141 @@ function showChart(){
       case "bar":
          showBar();
          break;
+      case "column":
+         showColumn();
+         break;
+      case "pie":
+         showPie();
+         break;
    }
 }
+
+function showPie(){   
+   $("#container").css("height","480px");
+   var chart = {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false
+  };
+  var title = {
+     text: '電影票房占有比例'   
+  };      
+  var tooltip = {
+     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+  };
+  var plotOptions = {
+     pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+           enabled: true,
+           format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+           style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+           }
+        }
+     }
+  };
+
+   let arr = new Array();
+   let total = 0;
+   originData.list.forEach( e =>{
+      total += e.amounts;
+   })
+
+   originData.list.forEach( e =>{
+      arr.push([e.name,e.amounts/total]);
+   })
+
+
+  var series= [{
+     type: 'pie',
+     name: 'Browser share',
+     data:arr
+  }];     
+     
+  var json = {};   
+  json.chart = chart; 
+  json.title = title;     
+  json.tooltip = tooltip;  
+  json.series = series;
+  json.plotOptions = plotOptions;
+  $('#container').highcharts(json);  
+}
+
+
+function showColumn(){
+   $("#container").css("height","480px");
+   var chart = {
+      type: 'column'
+   };
+   var title = {
+      text: '金額'   
+   };
+   var subtitle = {
+      text: 'Source: 文化資料開放服務網'  
+   };   
+   var yAxis = {
+      min: 0,
+      title: {
+         text: '金額'         
+      }      
+   };
+   var tooltip = {
+      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+      pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+         '<td style="padding:0"><b>{point.y} </b></td></tr>',
+      footerFormat: '</table>',
+      shared: true,
+      useHTML: true
+   };
+   var plotOptions = {
+      column: {
+         pointPadding: 0.2,
+         borderWidth: 0
+      }
+   };  
+   var credits = {
+      enabled: false
+   };
+   let nameArr = new Array();
+   let nameAmounts = new Array();
+   let nameTotal = new Array();
+   originData.list.forEach( e =>{
+      nameArr.push(e.name);
+      nameAmounts.push(e.amounts);
+      nameTotal.push(e.totalAmounts);
+   })
+   var xAxis = {
+      categories: nameArr,
+      crosshair: true
+   };
+
+   var series= [{
+      name: 'amounts',
+         data: nameAmounts
+     }, {
+         name: 'totalAmounts',
+         data: nameTotal
+     }
+];  
+
+
+
+   var json = {};   
+   json.chart = chart; 
+   json.title = title;   
+   json.subtitle = subtitle; 
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;  
+   json.credits = credits;
+   $('#container').highcharts(json);
+}
+
+
 
 function showBar(){
    $("#container").css("height","600px");
