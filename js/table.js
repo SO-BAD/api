@@ -115,6 +115,12 @@ function selectSort(obj) {
     qData();
 }
 
+function clearKeyword(){
+    document.getElementById('keyword').value = '';
+    qData();
+}
+
+
 function qData() {
 
     let checkCountry = new Array();
@@ -130,12 +136,14 @@ function qData() {
 
 
     if (keyword.trim() == "") {
+        $(".keywordClear").hide();
         originData.list.forEach(element => {
             if (checkCountry.includes(element.country)) {
                 queryData.push(element);
             }
         });
     } else {
+        $(".keywordClear").show();
         originData.list.forEach(element => {
             if (checkCountry.includes(element.country) && element.name.includes(keyword.trim())) {
                 queryData.push(element);

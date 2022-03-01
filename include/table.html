@@ -3,6 +3,7 @@
          <button class="btn btn-info"style="height: 32px;font-size: 14px;" onclick="chkAll(1)">全部勾選</button>
          <button class="btn btn-info"style="height: 32px;font-size: 14px;" onclick="chkAll(0)">取消全部勾選</button>
          <input type="text" id ="keyword" onkeyup="qData()">
+         <i class="fa-solid fa-circle-xmark keywordClear" onclick="clearKeyword()" ></i>
         <div id="countyMenu">
         </div>
     </div>
@@ -56,6 +57,11 @@
     </div>
 </div>
 <style>
+    .keywordClear{
+        margin-left: -25px;
+        color:rgb(23 162 184);
+        display: none;
+    }
     .tableMenu {
         padding-top: 10px;
         padding-left: 20px;
