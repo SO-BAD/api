@@ -34,7 +34,7 @@ class WAVE {
         this.intervalSpeed = 0.5;
         this.count = 0;
         this.time = this.waveR / this.addSpeed + this.waveR / this.rSpeed;
-        this.colorArr =['rgb(255,0,0)','rgb(255,165,0)','rgb(255,255,0)','rgb(0,255,0)','rgb(0,127,255)','rgb(0,0,255)','rgb(139,0,255)'];
+        this.colorArr =['rgba(255,0,0,','rgba(255,165,0,','rgba(255,255,0,','rgba(0,255,0,','rgba(0,127,255,','rgba(0,0,255,','rgba(139,0,255,'];
         this.colorNow = 0;
         this.opacity = 1;
         this.bgColor = "white";
@@ -55,9 +55,10 @@ class WAVE {
             
           
             if(i == 0 ){
-                ctx.fillStyle = this.colorArr[this.colorNow]
+                ctx.fillStyle = this.colorArr[this.colorNow]+(this.opacity - (this.count - i*this.time/2)/this.time)+")";
             }else{
-                ctx.fillStyle = this.colorArr[(this.colorNow+1)%this.colorArr.length];
+                ctx.fillStyle = this.colorArr[(this.colorNow+1)%this.colorArr.length] +(this.opacity - (this.count - i*this.time/2)/this.time)+")";
+                
             }
             ctx.fill();
 
