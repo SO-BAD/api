@@ -81,28 +81,28 @@ function addChkBox() {
             }
         }
     })
-    
+
 }
 
-function chkAll(num){
-    if(num ==1){
+function chkAll(num) {
+    if (num == 1) {
         $("input[type='checkbox']").prop("checked", true);
-    }else{
+    } else {
         $("input[type='checkbox']").prop("checked", false);
     }
     qData();
 }
 
 
-function selectSort(obj){
-    if(sortNow == $(obj).data("sort")){
-        sortOrd = (sortOrd+1)%2;
-        if(sortOrd == 0 ){
+function selectSort(obj) {
+    if (sortNow == $(obj).data("sort")) {
+        sortOrd = (sortOrd + 1) % 2;
+        if (sortOrd == 0) {
             $(obj).find(".sortOrd").html("<i class='fa-solid fa-arrow-up'></i>");
-        }else{
+        } else {
             $(obj).find(".sortOrd").html("<i class='fa-solid fa-arrow-down'></i>");
         }
-    }else{
+    } else {
         $(".sortOrd").html("");
         $(obj).find(".sortOrd").html("<i class='fa-solid fa-arrow-up'></i>");
         sortNow = $(obj).data("sort")
@@ -119,6 +119,7 @@ function qData() {
 
     let checkCountry = new Array();
     let chkbox = document.querySelectorAll("input[type='checkbox']");
+    let keyword = $("#keyword").val();
     chkbox.forEach((e, k) => {
         if (e.checked == true) {
             checkCountry.push(country[k])
@@ -126,11 +127,23 @@ function qData() {
     })
 
     queryData = [];
-    originData.list.forEach(element => {
-        if (checkCountry.includes(element.country)) {
-            queryData.push(element);
-        }
-    });
+
+
+    if (keyword.trim() == "") {
+        originData.list.forEach(element => {
+            if (checkCountry.includes(element.country)) {
+                queryData.push(element);
+            }
+        });
+    } else {
+        originData.list.forEach(element => {
+            if (checkCountry.includes(element.country) && element.name.includes(keyword.trim())) {
+                queryData.push(element);
+            }
+        });
+    }
+
+
 
 
     if (sortOrd == 0) {
@@ -204,7 +217,7 @@ function showTable(data) {
         dataTable.appendChild(fDiv);
     });
     clearInterval(animaVar);
-    ctx.clearRect(0,0,300,150);
+    ctx.clearRect(0, 0, 300, 150);
 }
 
 function adjModal() {
