@@ -3,7 +3,6 @@
 
 function showChart(){
    let type =$("#chartType").val();
-   console.log(type);
    switch(type){
       case "scatter":
          showScatter();
