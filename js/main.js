@@ -40,6 +40,8 @@ function q() {
                 clearCanvas();
                 $("#tableContent").html("");
                 $("#chartContent").html("");
+                sortNow = 'tickets';
+                sortOrd = 0;
         }
 }
 function date_ck(start, end) {
